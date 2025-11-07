@@ -12,8 +12,11 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.16",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-d3-tree-shejire": "^2.0.3",
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.16"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
