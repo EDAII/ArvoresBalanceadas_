@@ -3,8 +3,8 @@ import Header from "./components/header";
 
 function App() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="flex flex-col w-full max-w-6xl bg-white shadow-lg rounded-lg p-6 space-y-6">
+    <div className="min-h-screen bg-gray-100 pt-16">
+      <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 space-y-6">
         <Header />
         <Content />
       </div>

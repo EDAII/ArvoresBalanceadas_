@@ -12,11 +12,9 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.16",
     "react": "^19.1.1",
     "react-d3-tree-shejire": "^2.0.3",
-    "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.16"
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
@@ -30,7 +28,7 @@
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
     "postcss": "^8.5.6",
-    "tailwindcss": "3.4.14",
+    "tailwindcss": "^3.4.14",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.45.0",
     "vite": "^7.1.7"
