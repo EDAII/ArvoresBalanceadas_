@@ -8,8 +8,8 @@ import type { TreeNode } from "./types/treeNode";
 function App() {
 const [treeData, setTreeData] = useState<TreeNode | null>(null);
   return (
-    <div className="min-h-screen bg-gray-100 pt-16">
-      <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 space-y-6">
+<div className="min-h-screen bg-gray-100 flex items-center justify-center">
+  <div className="max-w-6xl w-full bg-white shadow-lg rounded-lg p-6 space-y-6">
         <Header
           handleInsert={(value) => {
             setTreeData((prev) => insertNode(prev, value));
@@ -17,6 +17,7 @@ const [treeData, setTreeData] = useState<TreeNode | null>(null);
           handleDelete={(value) => {
             setTreeData((prev) => deleteNode(prev, value));
           }}
+          handleClear={() => setTreeData(null)}
           searchValue={""}
           setSearchValue={function (value: SetStateAction<string>): void {
             throw new Error("Function not implemented.");

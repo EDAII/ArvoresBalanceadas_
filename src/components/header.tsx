@@ -5,6 +5,7 @@ interface HeaderProps {
   setSearchValue: Dispatch<SetStateAction<string>>;
   handleInsert: (value: number) => void;
   handleDelete: (value: number) => void;
+  handleClear: () => void
   handleFind: () => void;
   found: boolean | null;
   forceUpdate: () => void;
@@ -16,6 +17,7 @@ function Header({
   setSearchValue,
   handleInsert,
   handleDelete,
+  handleClear,
   handleFind,
   found,
 }: HeaderProps) {
@@ -56,10 +58,10 @@ function Header({
     <div className="border border-gray-300 rounded-lg bg-gray-50 p-4 sm:p-6">
       <div className="max-w-6xl mx-auto">
         <header className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-indigo-800 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-4xl font-bold tracking-tight">
             Árvore AVL
           </h1>
-          <p className="mt-2 text-sm sm:text-base text-indigo-600 font-medium">
+          <p className="mt-1 text-sm sm:text-base font-medium">
             Demonstração Interativa
           </p>
         </header>
@@ -125,9 +127,7 @@ function Header({
             <div className="h-[1.25rem]" />
             <div className="h-[2.625rem]" />
             <button
-              onClick={() => {
-                console.log("Limpar árvore clicado");
-              }}
+              onClick={handleClear}
               className="w-full px-6 py-2.5 bg-gray-700 text-white text-sm font-medium rounded-xl hover:bg-gray-800 active:scale-95 transition-all duration-200 shadow-sm"
             >
               Limpar Árvore
