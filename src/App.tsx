@@ -6,8 +6,7 @@ import { deleteNode } from "./functions/deleteNode";
 import type { TreeNode } from "./types/treeNode";
 
 function App() {
-  const [treeData, setTreeData] = useState<TreeNode | null>(null);
-
+const [treeData, setTreeData] = useState<TreeNode | null>(null);
   return (
     <div className="min-h-screen bg-gray-100 pt-16">
       <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 space-y-6">
