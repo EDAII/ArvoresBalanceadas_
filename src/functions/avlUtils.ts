@@ -1,17 +1,14 @@
 import type { TreeNode } from "../types/treeNode";
 
-const getLeft = (node: TreeNode): TreeNode | null => node.children?.[0] ?? null;
-
-const getRight = (node: TreeNode): TreeNode | null =>
-  node.children?.[1] ?? null;
+export const getLeft = (node: TreeNode): TreeNode | null => node.children?.[0] ?? null;
+export const getRight = (node: TreeNode): TreeNode | null => node.children?.[1] ?? null;
 
 export function getHeight(node: TreeNode | null): number {
   return node ? node.height : 0;
 }
 
 export function updateHeight(node: TreeNode): void {
-  node.height =
-    1 + Math.max(getHeight(getLeft(node)), getHeight(getRight(node)));
+  node.height = 1 + Math.max(getHeight(getLeft(node)), getHeight(getRight(node)));
 }
 
 export function getBalanceFactor(node: TreeNode | null): number {
@@ -21,27 +18,24 @@ export function getBalanceFactor(node: TreeNode | null): number {
 
 export function findMin(node: TreeNode): TreeNode {
   let current = node;
-  while (current.children?.[0]) {
-    current = current.children[0];
-  }
+  while (getLeft(current)) current = getLeft(current)!;
   return current;
 }
 
+export function setChildren(node: TreeNode, left: TreeNode | null, right: TreeNode | null): void {
+  node.children = [left, right];
+}
+
 export function rightRotate(y: TreeNode): TreeNode {
-  const x = getLeft(y)!;
+  const x = getLeft(y);
+  if (!x) throw new Error("rightRotate: left child is null");
   const T2 = getRight(x);
 
-  const newX = { ...x };
-  const newY = { ...y };
+  const newX: TreeNode = { ...x, children: x.children ? [...x.children] : undefined };
+  const newY: TreeNode = { ...y, children: y.children ? [...y.children] : undefined };
 
-  newY.children = [T2, getRight(newY)].filter(Boolean) as
-    | TreeNode[]
-    | undefined;
-  if (newY.children?.length === 0) newY.children = undefined;
-
-  newX.children = [getLeft(newX), newY].filter(Boolean) as
-    | TreeNode[]
-    | undefined;
+  setChildren(newY, T2, getRight(newY));
+  setChildren(newX, getLeft(newX), newY);
 
   updateHeight(newY);
   updateHeight(newX);
@@ -50,18 +44,15 @@ export function rightRotate(y: TreeNode): TreeNode {
 }
 
 export function leftRotate(y: TreeNode): TreeNode {
-  const x = getRight(y)!;
+  const x = getRight(y);
+  if (!x) throw new Error("leftRotate: right child is null");
   const T2 = getLeft(x);
 
-  const newX = { ...x };
-  const newY = { ...y };
+  const newX: TreeNode = { ...x, children: x.children ? [...x.children] : undefined };
+  const newY: TreeNode = { ...y, children: y.children ? [...y.children] : undefined };
 
-  newY.children = [getLeft(newY), T2].filter(Boolean) as TreeNode[] | undefined;
-  if (newY.children?.length === 0) newY.children = undefined;
-
-  newX.children = [newY, getRight(newX)].filter(Boolean) as
-    | TreeNode[]
-    | undefined;
+  setChildren(newY, getLeft(newY), T2);
+  setChildren(newX, newY, getRight(newX));
 
   updateHeight(newY);
   updateHeight(newX);

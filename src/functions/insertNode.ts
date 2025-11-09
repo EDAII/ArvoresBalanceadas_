@@ -1,54 +1,58 @@
 import type { TreeNode } from "../types/treeNode";
-import { getBalanceFactor, leftRotate, rightRotate, updateHeight } from "./avlUtils";
+import {
+  getBalanceFactor,
+  leftRotate,
+  rightRotate,
+  updateHeight,
+  getLeft,
+  getRight,
+  setChildren,
+} from "./avlUtils";
 
 export function insertNode(
   root: TreeNode | null,
-  value: number
+  value: number,
+  depth: number = 0
 ): TreeNode {
+
   if (!root) {
-    return {
-      _id: crypto.randomUUID(),
-      name: String(value),
-      height: 1,
-      children: undefined,
-    };
+    const newNode = { _id: crypto.randomUUID(), name: String(value), height: 1 };
+    return newNode;
   }
 
-  const newNode = { ...root };
+  const newNode: TreeNode = { ...root, children: root.children ? [...root.children] : undefined };
   const rootValue = Number(root.name);
-
   if (value < rootValue) {
-    const newLeft = insertNode(root.children?.[0] ?? null, value);
-    newNode.children = [newLeft, root.children?.[1]].filter(Boolean) as TreeNode[];
+    const newLeft = insertNode(getLeft(root), value, depth + 1);
+    setChildren(newNode, newLeft, getRight(root));
   } else if (value > rootValue) {
-    const newRight = insertNode(root.children?.[1] ?? null, value);
-    newNode.children = [root.children?.[0], newRight].filter(Boolean) as TreeNode[];
+    const newRight = insertNode(getRight(root), value, depth + 1);
+    setChildren(newNode, getLeft(root), newRight);
   } else {
     return root;
   }
 
   updateHeight(newNode);
-
   const balance = getBalanceFactor(newNode);
+  const left = getLeft(newNode);
+  const right = getRight(newNode);
 
-  const leftChild = newNode.children?.[0];
-  const rightChild = newNode.children?.[1];
-
-  if (balance > 1 && leftChild && value < Number(leftChild.name)) {
+  if (balance > 1 && left && getBalanceFactor(left) >= 0) {
     return rightRotate(newNode);
   }
 
-  if (balance < -1 && rightChild && value > Number(rightChild.name)) {
-    return leftRotate(newNode);
-  }
-
-  if (balance > 1 && leftChild && value > Number(leftChild.name)) {
-    newNode.children = [leftRotate(leftChild), rightChild].filter(Boolean) as TreeNode[];
+  if (balance > 1 && left && getBalanceFactor(left) < 0) {
+    setChildren(newNode, leftRotate(left), right);
     return rightRotate(newNode);
   }
 
-  if (balance < -1 && rightChild && value < Number(rightChild.name)) {
-    newNode.children = [leftChild, rightRotate(rightChild)].filter(Boolean) as TreeNode[];
+  if (balance < -1 && right && getBalanceFactor(right) <= 0) {
+    const result = leftRotate(newNode);
+    return result;
+  }
+
+  if (balance < -1 && right && getBalanceFactor(right) > 0) {
+    setChildren(newNode, left, rightRotate(right));
     return leftRotate(newNode);
   }
 
