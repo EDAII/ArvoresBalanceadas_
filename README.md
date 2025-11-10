@@ -54,3 +54,5 @@ Foi possível visualizar por meio do projeto o balanceamento AVL em árvores ind
 ## Referências
 
 - AVL: https://www.w3schools.com/dsa/dsa_data_avltrees.php
+- Visualizador AVL: https://www.cs.usfca.edu/~galles/visualization/AVLtree.html
+- Visualizador AVL: https://www.inf.ufsc.br/~aldo.vw/estruturas/simulador/AVL.html
